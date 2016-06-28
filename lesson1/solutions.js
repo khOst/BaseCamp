@@ -67,6 +67,7 @@ function calcInRange(a, b) {
     if (sum >= 11 && sum <= 19) {
         console.log(sum);
     }
+    
     console.log('Result is not in range between 11 and 19');
 }
 
@@ -96,16 +97,16 @@ var arr = ['a', 'b', 'c', 'd'];
 
 // 'for' loop
 for (var i = arr.length - 1; i >= 0; i--) {
-    console.log(arr[i])
+    console.log(arr[i]);
 }
 // or
 for (var i = 0; i < arr.length; i++) {
-    console.log(arr[i])
+    console.log(arr[i]);
 }
 
 // ES6 'for of' loop
 for (let item of arr) {
-    console.log(item)
+    console.log(item);
 }
 
 // 'for in' loop
