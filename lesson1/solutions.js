@@ -115,7 +115,7 @@ for (var item in arr) {
 
 // 'forEach' loop
 arr.forEach(function(item, i, arr) {
-  console.log(item);
+    console.log(item);
 });
 
 
@@ -123,7 +123,7 @@ arr.forEach(function(item, i, arr) {
 Проверить является ли строка полиндромом
 */
 function isPalindromic(string) {
-  return string.split('').reverse().join('');
+    return string.split('').reverse().join('');
 }
 
 
