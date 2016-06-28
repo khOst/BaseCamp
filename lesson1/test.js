@@ -28,8 +28,8 @@ function compareByType(a, b) {
 */
 function increase(value) {
     return (typeof value === 'number') 
-    ? ++value 
-    : -1;
+        ? ++value 
+        : -1;
 }
 
 
@@ -41,8 +41,8 @@ function increase(value) {
 */
 function join(array, separator) {
     return separator 
-    ? array.join(separator) 
-    : array.join('-');
+        ? array.join(separator) 
+        : array.join('-');
 }
 
 
@@ -98,7 +98,7 @@ function stringToArray(str) {
 */
 function getStringPart(str) {
     var commaIndex = str.indexOf(',')
-    firstWord = str.slice(0, commaIndex);
+    var firstWord = str.slice(0, commaIndex);
 
     return firstWord;
 }
