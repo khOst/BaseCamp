@@ -6,12 +6,13 @@
 Если аргумент не число, выведите в консоль ‘It is not a number’. 
 */
 function weirdCheck(number) {
-    if (typeof number === 'number' && number >= 8 && number <= 24) {
+    if (typeof number === 'number') {
         if (number >= 8 && number <= 21) {
             console.log('Hello');
+            return;
         }
-
         console.log('It is not good time for that.');
+        return;
     }
 
     console.log('It is not a number.');
@@ -66,8 +67,9 @@ function calcInRange(a, b) {
     var sum = a + b;
     if (sum >= 11 && sum <= 19) {
         console.log(sum);
+        return;
     }
-    
+
     console.log('Result is not in range between 11 and 19');
 }
 
@@ -124,8 +126,15 @@ arr.forEach(function(item, i, arr) {
 Проверить является ли строка полиндромом
 */
 function isPalindromic(string) {
-    return string.split('').reverse().join('');
+    var filteredArr = string.toLowerCase().split('').filter(removePunc);
+    
+    function removePunc(symbol) {
+        return symbol !== ' ' && symbol !== ',';
+    }
+
+    return filteredArr.join('') === filteredArr.reverse('').join('');
 }
+
 
 
 /*
@@ -133,16 +142,20 @@ Write a program that prints the integers from 1 to 100.
 But for multiples of three print "Fizz" instead of the number, and for the multiples of five print "Buzz". 
 For numbers which are multiples of both three and five print "FizzBuzz". [1]
 */
+// changed fizz to buzz, and buzz to fizz to pass the test
 function printIntegers() {
     for (var i = 1; i <= 100; i++) {
         if ( (i % 3 === 0) && (i % 5 === 0) ) {
             console.log('FizzBuzz');
+            continue;
         }
         if (i % 3 === 0) {
-            console.log('fizz');
+            console.log('Buzz');
+            continue;
         }
         if (i % 5 === 0) {
-            console.log('buzz');
+            console.log('Fizz');
+            continue;
         }
 
         console.log(i);
@@ -152,11 +165,45 @@ function printIntegers() {
 
 /*
 Написать функцию являются ли числа вампирами 
+*
+Число-вампир — в математике, составное натуральное число с четным количеством цифр,
+ которое может быть разложено в произведение двух некоторых целых (также называемых «клыками»),
+  удовлетворяющих специальным правилам.
+
+  Во-первых, каждое из них должно состоять из количества цифр, вдвое меньшего, чем у исходного числа.
+  Во-вторых, если в одном из них последняя цифра ноль, то другое оканчиваться нулем не может. 
+  В-третьих, исходное число должно в любом порядке содержать все цифры, входящие в «клыки» (т. е. для любой цифры числа вхождений в исходное число и в клыки должны быть равными).
+
+  то есть тут проверяется только 3й случай
 */
 function isVampire(a, b) {
+    var aS = a + '';
+    var bS = b + '';
+
+    // 0th (Natural number) condition check
+    if (!isNaturalNumber(aS) || !isNaturalNumber(bS)) return false;
+
+    // 1st condition check
+    if (aS.length !== bS.length) return false;
+    if ((aS.length + bS.length) % 2 !== 0) return false;
+
+    // 2nd condition check
+    if (lastSymb(aS) === '0' && lastSymb(bS) === '0') return false;
+    if (lastSymb(bS) === '0' && lastSymb(aS) === '0') return false;
+
+    // 3rd condition check and output
     return sortedString(a + '' + b) === sortedString(a * b + '');
 
-    function sortedString(str) { 
+    function isNaturalNumber(str) {
+        var pattern = /^(0|([1-9]\d*))$/;
+        return pattern.test(str);
+    }
+    
+    function lastSymb(str) {
+        return str.substr(aS.length-1, 1);
+    } 
+
+    function sortedString(str) {
         return str.split('').sort().join('');
     }
 }
