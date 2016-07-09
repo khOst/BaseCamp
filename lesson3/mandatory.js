@@ -6,7 +6,8 @@
 3. Вызовите написанную функцию и передайте два созданных объекта и свойство для сравнения
 */
 var o1 = {
-    myProperty: 9000
+    myProperty: 9000,
+    name: 'First Object'
 };
 var o2 = new ObjectMachine();
 var result = compareObjects(o1, o2, 'myProperty');
@@ -15,10 +16,11 @@ console.log(result);
 
 function ObjectMachine() {
     this.myProperty = 10000;
+    this.name = 'Second Object'
 }
 
 function compareObjects(obj1, obj2, numProp) {
-    return obj1[numProp] > obj2[numProp] ? obj1[numProp] : obj2[numProp];
+    return obj1[numProp] > obj2[numProp] ? obj1.name : obj2.name;
 }
 
 
@@ -105,11 +107,23 @@ function Calculator() {
         Arguments.push(arguments[i]);
     }
 
-    this.add = function(num) {
-        return this.getCurrentSum() + num;
+    var sum = [];
+
+    this.add = function (num) {
+        if (typeof num === 'number' && !isNaN(num)) {
+            Arguments.push(num);
+            sum = Arguments.reduce(sumAccumulator);
+
+            return this;
+        } else {
+            throw new Error('Please, enter a number.');
+        }
     };
 
-    this.getCurrentSum = function(index) {
+    this.getCurrentSum = function (index) {
+        if (!Arguments.length) {
+            return 0;
+        }
         if (index === 'undefined') {
             return Arguments.reduce(sumAccumulator);
         }
@@ -125,9 +139,13 @@ function Calculator() {
 var calc1 = new Calculator(3, 8, 11);
 var calc2 = new Calculator(5, 12, 17);
 
-console.log(calc1.getCurrentSum() + calc2.getCurrentSum());
-console.log(calc1.getCurrentSum(2) + calc2.getCurrentSum(2));
-console.log(calc1.getCurrentSum(3) === calc1.getCurrentSum());
+console.log('calc1 + calc2 = ' + (calc1.getCurrentSum() + calc2.getCurrentSum()));
+console.log('Including to second index, calc1 + calc2 = ' + (calc1.getCurrentSum(2) + calc2.getCurrentSum(2)));
+console.log('calc1.getCurrentSum(3) === calc1.getCurrentSum() is ' + (calc1.getCurrentSum(3) === calc1.getCurrentSum()));
+console.log('calc1 = ' + calc1.getCurrentSum());
+
+calc1.add(3).add(8).add(11);
+console.log('calc1 + 3 + 8 + 11 = ' + calc1.getCurrentSum());
 
 
 /**
@@ -155,7 +173,7 @@ function Garage() {
 
     this.count = () => cars.length;
 
-    this.showCars = () => cars;
+    this.getCars = () => cars;
 }
 
 function Car(model, manufacturer, price) {
