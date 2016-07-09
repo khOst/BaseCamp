@@ -75,3 +75,56 @@ function favoriteSong(collection) {
 
     return favSongInfo;
 }
+
+
+/**
+ * Класс калькулятор
+ * 1. Опишите конструктор объектов (класс) Calculator с двумя методами:
+ * - add - принимает число и прибавляет его к предыдущему,
+ * - getCurrentSum - принимает индекс и возвращает результирующее число на шаге указынном в индексе
+ * (если индекса нет, возвращает текущую сумму)
+ * 2. Создайте два экземпляра класса Calculator
+ * 3. Добавьте в первый объект числа 3,8,11 и во второй 5,12,17.
+ * 4. Выведите в консоль сумму:
+ * - всех чисел всех объектов, убедитесь (56)
+ * - сумму чисел всех объектов на втором шаге (28)
+ * - для одного объекта сумму после третьего шага и общую результирующую сумму (должна совпадать)
+ *
+ * @constructor
+ * @returns {Number}
+ *
+ * Пример вызова:
+ * var calc1 = new Calculator(3, 8, 11);
+ * expect(calc1.getCurrentSum()).toBe(22);
+ * expect(calc2.add(8)).toBe(30);
+ */
+function Calculator() {
+    var Arguments = [];
+
+    for (var i = 0; i < arguments.length; i++) {
+        Arguments.push(arguments[i]);
+    }
+
+    this.add = function(num) {
+        return this.getCurrentSum() + num;
+    };
+
+    this.getCurrentSum = function(index) {
+        if (index === 'undefined') {
+            return Arguments.reduce(sumAccumulator);
+        }
+
+        return Arguments.slice(0, index).reduce(sumAccumulator);
+    };
+
+    function sumAccumulator(a, b) {
+        return a + b;
+    }
+}
+
+var calc1 = new Calculator(3, 8, 11);
+var calc2 = new Calculator(5, 12, 17);
+
+console.log(calc1.getCurrentSum() + calc2.getCurrentSum());
+console.log(calc1.getCurrentSum(2) + calc2.getCurrentSum(2));
+console.log(calc1.getCurrentSum(3) === calc1.getCurrentSum());
