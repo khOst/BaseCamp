@@ -1,6 +1,5 @@
 /*
 Write a JavaScript function that accepts a string as a parameter and find the longest word within the string.
- 
 Example string : 'Hello, GlobalLogic!'
 Expected Output : 'GlobalLogic'
 */
@@ -30,9 +29,37 @@ Write a function that can print entity details based on next model:
 }
 Expected output: "%NAME%(%TYPE%) - %AGE%."
 */
-function entityDetails(obj) {
-    
+var o1 = {
+    name: 'Hardcore Henry',
+    type: 'Cyborg',
+    age: 25
+};
+
+function showEntityDetails(obj) {
+    return "%" + obj.name + "%(%" + obj.type + "%) - %" + obj.age + "%." ;
 }
+
+// Output
+console.log(showEntityDetails(o1));
+
+
+/*
+Rewrite that function to use this instead of argument 
+(use apply, call and bind to print the
+details of different entities).
+*/
+function showEntityDetails(obj) {
+    return "%" + this.name + "%(%" + this.type + "%) - %" + this.age + "%." ;
+}
+
+// Output: Apply, bind and call
+var applied = showEntityDetails.apply(o1, ['name', 'type', 'age']);
+var called = showEntityDetails.call(o1, 'name', 'type', 'age');
+var binded = showEntityDetails.bind(o1);
+
+console.log(applied);
+console.log(called);
+console.log(binded());
 
 
 /* 
@@ -41,15 +68,15 @@ function entityDetails(obj) {
 строчные и заглавные буквы - 1 символ.
 */
 function extractCharacters(str) {
-  var arr = str.split('');
-  var obj = {};
+    var arr = str.split('');
+      var obj = {};
 
-  for (var i = 0; i < arr.length; i++) {
-    var char = arr[i];
-    obj[char] = true; 
-  }
+    for (var i = 0; i < arr.length; i++) {
+        var char = arr[i];
+        obj[char] = true; 
+    }
 
-  return Object.keys(obj);
+    return Object.keys(obj);
 }
 
 extractCharacters('abcd');
