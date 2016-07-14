@@ -14,39 +14,33 @@
  */
 
 class Shape {
-    constructor() {
-        this.getType();
+    constructor(type = 'shape') {
+        this.type = type;
     }
 
     getType() {
-        // Constructor stores the name property that is equal to the class name.
-        // So there is no need to pass another type property.
-        return this.constructor.name; 
+        return this.type;
+        // Or we can get the type like this:
+        //return this.constructor.name;
     }
 }
 
 class Triangle extends Shape {
-    constructor(a, b, c) {
-        super();
-
-        this.sides = arguments;
-        this.getPerimeter();
+    constructor(type, ...sides) {
+        super(type);
+        this.perimeter = sides.reduce((a, b) => a + b);
     }
 
+    //getPerimeter is stored in Triangle.prototype
     getPerimeter() {
-        let perimenter = 0;
-        for (var i = 0; i < this.sides.length; i++) {
-            perimenter += this.sides[i];
-        }
-
-        return perimenter;
+        return this.perimeter;
     }
 }
 
-let t = new Triangle(1, 2, 3);
+const t = new Triangle('triangle', 1, 2, 3);
 
 // Output
 console.log(t.constructor);
 console.log(t instanceof Shape);
 console.log(t.getPerimeter());
-console.log(t.getType());
+console.log(t.type);
