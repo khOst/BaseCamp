@@ -44,3 +44,20 @@ console.log(t.constructor);
 console.log(t instanceof Shape);
 console.log(t.getPerimeter());
 console.log(t.type);
+
+
+//1 + add(1)(2) // 4
+function add(a) {
+    var sum = a;
+
+    function addOne(b) {
+        sum += b;
+        return addOne;
+    }
+
+    addOne.toString = function() {
+        return sum;
+    };
+
+    return addOne;
+}
