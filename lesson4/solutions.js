@@ -46,7 +46,9 @@ console.log(t.getPerimeter());
 console.log(t.type);
 
 
-//1 + add(1)(2) // 4
+/**
+ * Expected output: 1 + add(1)(2) // 4
+ */
 function add(a) {
     var sum = a;
 
