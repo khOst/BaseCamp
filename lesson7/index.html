@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Star Wars Heroes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container container-main center-block">
+    <header>
+        <h1 class="text-center">Star Wars Heroes</h1>
+        <hr/>
+    </header>
+    <section class="main">
+        <div class="col-md-3">
+            <div class="avatar center-block">
+                <img class="img-responsive img-thumbnail" src="http://www.flirtbox.nl/images/Avatar-Man.jpg"
+                     alt="avatar"/>
+            </div>
+            <ul class="pager">
+                <li>
+                    <button id="prev" class="btn btn-default disabled">Prev</button>
+                </li>
+                <li>
+                    <button id="next" class="btn btn-default">Next</button>
+                </li>
+            </ul>
+        </div>
+        <div id="hero-block" class="col-md-9">
+            <div class="col-md-5">
+                <ul id="hero-info">
+
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <div id="hero-films">
+                    <ul>
+                        <li>Episode 5: A New hope</li>
+                        <li>Episode 6: A New hope</li>
+                        <li>Episode 7: A New hope</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="loading" class="col-md-9 hidden">
+            <h2>Loading data...</h2>
+        </div>
+    </section>
+</div>
+<script src="main.js"></script>
+</body>
+</html>
