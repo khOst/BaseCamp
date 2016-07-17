@@ -1,0 +1,25 @@
+body {
+    background: url("http://i.imgur.com/WdJLMuJ.jpg");
+    font-size: 18px;
+    font-family: Georgia sans-serif;
+}
+
+body, a {
+    color: #333;
+}
+
+li {
+    list-style-type: none;
+}
+
+.container-main {
+    margin: 3em auto;
+    max-width: 1000px;
+    background-color: #fff;
+    padding: 1em;
+    border-radius: 1em;
+}
+
+.avatar {
+    max-width: 250px;
+}
