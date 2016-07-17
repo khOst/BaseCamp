@@ -76,7 +76,7 @@ function loadPage(bookId) {
 
     doAjaxCall('api/books/' + id, 'GET', function (response) {
         document.getElementById('book').textContent = response.name;
-        doAjaxCall('api/autors' + response.authorId, 'GET', function (response) {
+        doAjaxCall('api/authors' + response.authorId, 'GET', function (response) {
             document.getElementById('author').textContent = response.name;
             var similarBooksLoaded = 0;
             var similarBooksAmount = response.books.lenght;
@@ -107,17 +107,28 @@ function loadPage(bookId) {
  Rewrite using fetch API https://developer.mozilla.org/ru/docs/Web/API/Fetch_API
 
  */
+function status(response) {  
+    return (response.status >= 200 && response.status < 300) 
+    ? Promise.resolve(response)
+    : Promise.reject(new Error(response.statusText));
+}
+
+function json(response) {  
+  return response.json();
+}
+
 function getBookById(id) {
     var book = document.getElementById('book');
-
+    
     book.textContent = 'Please wait. Book is loading';
-    fetch('api/books/' + id)
-        .then((res) => {
+    
+    fetch('api/books/' + id)  
+        .then(status)  
+        .then(json) 
+        .then(data => {
             book.textContent = response.name;
         })
-        .catch((err) => {
-            console.log('Error. Please refresh your browser', err);
-        });
+        .catch(err => console.log('Error. Please refresh your browser', err));
 }
 
 function loadPage(bookId) {
@@ -130,27 +141,34 @@ function loadPage(bookId) {
     similar.textContent = 'Please wait. Similar books are loading';
 
     fetch('api/books/' + id)
-        .then((res) => {
-            book.textContent = res.name;
-            fetch('api/authors' + res.authorId);
+        .then(status)
+        .then(json)
+        .then(data => {
+            book.textContent = data.name;
         })
-        .then((res) => {
-            author.textContent = res.name;
+        .then(data => fetch('api/authors' + data.authorId))
+        .then(status)
+        .then(json)
+        .then(data => {
             var similarBooksLoaded = 0;
-            var similarBooksAmount = response.books.length;
-
-            response.books.forEach(function (similarBookId) {
+            var similarBooksAmount = data.books.length;
+            
+            data.textContent = response.name;
+            
+            books.forEach(similarBookId => {
                 fetch('api/bestsellers/similar/' + similarBookId);
-            })
-        }).then((res) => {
-            var p = similar.appendChild('p').textContent = res;
-
-            similarBooksLoaded += 1;
+            });
+        })
+        .then(status)
+        .then(json)
+        .then(data => {
+            var p = similar.appendChild('p').textContent = data;
+    
+            similarBooksLoaded++;
+            
             if (similarBooksLoaded === similarBooksAmount) {
                 alert('Horray everything loaded');
             }
         })
-        .catch((err) => {
-            console.log('Error. Please refresh your browser. ', err);
-        });
+        .catch(err => console.log('Error. Please refresh your browser. ', err));
 }
