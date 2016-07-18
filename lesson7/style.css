@@ -18,8 +18,20 @@ li {
     background-color: #fff;
     padding: 1em;
     border-radius: 1em;
+    box-shadow: 6px 9px 25px #080808;
 }
 
 .avatar {
     max-width: 250px;
+}
+
+#loading {
+    height: 40px;
+}
+
+.loading-text {
+    text-align: center;
+    font-style: italic;
+    text-shadow: 0px -2px 2px #000, 0px 0px 2px #000;
+    color: rgba(229, 217, 247, 0.59);
 }
